@@ -86,7 +86,7 @@ class query(object):
     ### methods to access parameters 
     #######################
 
-    def get_docs(): 
+    def get_docs(self): 
         '''
         Open package documentation in new browser
         '''
