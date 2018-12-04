@@ -1,0 +1,300 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Welcome to DHSpy’s documentation! &mdash; DHSpy 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> DHSpy
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Welcome to DHSpy’s documentation!</a></li>
+<li><a class="reference internal" href="#module-DHSpy.__init__">DHSpy Base</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">DHSpy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Welcome to DHSpy’s documentation!</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="welcome-to-dhspy-s-documentation">
+<h1>Welcome to DHSpy’s documentation!<a class="headerlink" href="#welcome-to-dhspy-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="module-DHSpy.__init__">
+<span id="dhspy-base"></span><h1>DHSpy Base<a class="headerlink" href="#module-DHSpy.__init__" title="Permalink to this headline">¶</a></h1>
+<p>Init file which generates the query module.</p>
+<dl class="class">
+<dt id="DHSpy.__init__.query">
+<em class="property">class </em><code class="descclassname">DHSpy.__init__.</code><code class="descname">query</code><a class="reference internal" href="_modules/DHSpy/__init__.html#query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DHSpy.__init__.query" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Attr series_selection:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">the series codes to download via the API. To search for series codes, use the <cite>find_series_codes()</cite> method.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Attr country_selection:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">two-letter country codes of interest. To search for series codes, use the <cite>find_country_codes()</cite> method.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">Attr survey_selection:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">list of survey codes to download. To search for survey codes, use the <cite>find_survey_codes()</cite> method.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Attr series_options:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">dataframe of all series options in the DHS database.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">Attr country_options:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">dataframe of all country options in the DHS database.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Attr survey_options:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">dataframe of all survey options in the DHS database.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="DHSpy.__init__.query.find_country_codes">
+<code class="descname">find_country_codes</code><span class="sig-paren">(</span><em>country_names: list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/DHSpy/__init__.html#query.find_country_codes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DHSpy.__init__.query.find_country_codes" title="Permalink to this definition">¶</a></dt>
+<dd><p>The find country codes of interest given a country name or list of country names</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>country_names</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – list of country names of interest</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>return </dt>
+<dd>pandas.DataFrame()</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="DHSpy.__init__.query.get_DHS_metadata">
+<code class="descname">get_DHS_metadata</code><span class="sig-paren">(</span><em>columns_interest=['IndicatorId', 'Label', 'Definition']</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/DHSpy/__init__.html#query.get_DHS_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DHSpy.__init__.query.get_DHS_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function creates a pandas dataframe of the metadata selected in <cite>metadata_type</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>metadata_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – the metadata of interest, known options = {‘indicators’, ‘countries’, ‘surveys’}.</li>
+<li><strong>columns_interest</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – columns to return in the dataframe, pass ‘all’ for all columns available. Default:  [‘IndicatorId’, ‘Label’, ‘Definition’].</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>return </dt>
+<dd>pandas dataframe of metadata</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="DHSpy.__init__.query.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/DHSpy/__init__.html#query.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DHSpy.__init__.query.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the query given the series and survey selection.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, USAID-Data-Services
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'0.0.1',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

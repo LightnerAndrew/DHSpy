@@ -1,8 +1,6 @@
 
 '''
-DHSpy - API Wrapper for USAID DHS Data
-======================================
-
+Init file which generates the query module. 
 '''
 # the basics 
 import pandas as pd
@@ -14,24 +12,27 @@ from urllib.request import urlopen
 import json
 import requests
 
-# access package location if needed. 
+# import package tools 
 import pkg_resources
 
 
 class query(object): 
     '''
-    :attr url: the base url for the API. Default: https://api.dhsprogram.com/rest/dhs/. 
-    :type url: str. 
-    :attr series_codes: the series codes to download via the API. To search for series codes, use the `find_series_codes()` method. 
-    :type series_codes: list 
-    :attr country_codes: two-letter country codes of interest. To search for series codes, use the `find_country_codes()` method. 
-    :type country_codes: list 
-    :attr survey_codes: list of survey codes to download. To search for survey codes, use the `find_survey_codes()` method. 
-    :type survey_codes: list     
-    '''
+ 
+    :attr series_selection: the series codes to download via the API. To search for series codes, use the `find_series_codes()` method. 
+    :type series_selection: list 
+    :attr country_selection: two-letter country codes of interest. To search for series codes, use the `find_country_codes()` method. 
+    :type country_selection: list 
+    :attr survey_selection: list of survey codes to download. To search for survey codes, use the `find_survey_codes()` method. 
+    :type survey_selection: list
+    :attr series_options: dataframe of all series options in the DHS database. 
+    :type series_options: df
+    :attr country_options: dataframe of all country options in the DHS database. 
+    :type country_options: df
+    :attr survey_options: dataframe of all survey options in the DHS database. 
+    :type survey_options: df
 
-    # parameters 
-    url = 'https://api.dhsprogram.com/rest/dhs/'
+    '''
 
     # select indicators 
     series_selection = []
@@ -85,6 +86,20 @@ class query(object):
     ### methods to access parameters 
     #######################
 
+    def get_docs(): 
+        '''
+        Open package documentation in new browser
+        '''
+        DOC_PATH = pkg_resources.resource_filename('DHSpy', '/docs/build/html')
+
+        import webbrowser
+        new = 2  # open in a new tab, if possible
+
+        #// open an HTML file on my own(Windows) computer
+        url = "file://{}/testdata.html".format(DOC_PATH)
+        webbrowser.open(url, new=new)
+        return 
+
     def find_country_codes(self, country_names:list): 
         '''
         The find country codes of interest given a country name or list of country names 
@@ -115,13 +130,12 @@ class query(object):
             for series in self.series_selection: 
                 
                 qry = 'https://api.dhsprogram.com/rest/dhs/v7/indicators?={}/survey?={}'.format(series, survey)
-                print('here')
+
                 # try to access the data 
                 try: 
                     # use urlopen to get initial response
                     req = urlopen(qry)
                     
-         
                     # read the json file (json is a type of format passed over internet which resembles python dictionarie)
                     resp = json.loads(req.read())
 
@@ -130,7 +144,6 @@ class query(object):
 
                     # select the number of pages, this will be used to iterate over the pages to access the full dataset.
                     number_of_pages = resp['TotalPages']
-                    print(number_of_pages)
 
                     # transform data_json into a pandas dataframe
                     data = pd.DataFrame.from_records(data_json)

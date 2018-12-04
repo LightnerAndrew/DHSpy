@@ -1,0 +1,352 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>DHSpy.__init__ &mdash; DHSpy 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> DHSpy
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">DHSpy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>DHSpy.__init__</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for DHSpy.__init__</h1><div class="highlight"><pre>
+<span></span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Init file which generates the query module. </span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="c1"># the basics </span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">ExcelWriter</span>
+
+<span class="c1"># packages for accessing the api</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">urllib.request</span> <span class="k">import</span> <span class="n">urlopen</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="c1"># import package tools </span>
+
+
+
+<div class="viewcode-block" id="query"><a class="viewcode-back" href="../../index.html#DHSpy.__init__.query">[docs]</a><span class="k">class</span> <span class="nc">query</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span> 
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd"> </span>
+<span class="sd">    :attr series_selection: the series codes to download via the API. To search for series codes, use the `find_series_codes()` method. </span>
+<span class="sd">    :type series_selection: list </span>
+<span class="sd">    :attr country_selection: two-letter country codes of interest. To search for series codes, use the `find_country_codes()` method. </span>
+<span class="sd">    :type country_selection: list </span>
+<span class="sd">    :attr survey_selection: list of survey codes to download. To search for survey codes, use the `find_survey_codes()` method. </span>
+<span class="sd">    :type survey_selection: list</span>
+<span class="sd">    :attr series_options: dataframe of all series options in the DHS database. </span>
+<span class="sd">    :type series_options: df</span>
+<span class="sd">    :attr country_options: dataframe of all country options in the DHS database. </span>
+<span class="sd">    :type country_options: df</span>
+<span class="sd">    :attr survey_options: dataframe of all survey options in the DHS database. </span>
+<span class="sd">    :type survey_options: df</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="c1"># select indicators </span>
+    <span class="n">series_selection</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">country_selection</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">survey_selection</span> <span class="o">=</span> <span class="p">[]</span>
+
+
+    <span class="c1">##### get the metadata for the queries. </span>
+
+<div class="viewcode-block" id="query.get_DHS_metadata"><a class="viewcode-back" href="../../index.html#DHSpy.__init__.query.get_DHS_metadata">[docs]</a>    <span class="k">def</span> <span class="nf">get_DHS_metadata</span><span class="p">(</span><span class="n">metadata_type</span><span class="p">,</span> <span class="n">columns_interest</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;IndicatorId&#39;</span><span class="p">,</span> <span class="s1">&#39;Label&#39;</span><span class="p">,</span> <span class="s1">&#39;Definition&#39;</span><span class="p">]):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        This function creates a pandas dataframe of the metadata selected in `metadata_type`. </span>
+<span class="sd">        </span>
+<span class="sd">        :param metadata_type: the metadata of interest, known options = {&#39;indicators&#39;, &#39;countries&#39;, &#39;surveys&#39;}. </span>
+<span class="sd">        :type metadata_type: str</span>
+<span class="sd">        :param columns_interest: columns to return in the dataframe, pass &#39;all&#39; for all columns available. Default:  [&#39;IndicatorId&#39;, &#39;Label&#39;, &#39;Definition&#39;]. </span>
+<span class="sd">        :type columns_interest: list</span>
+<span class="sd">        </span>
+<span class="sd">        return </span>
+<span class="sd">            pandas dataframe of metadata </span>
+<span class="sd">            </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># link to indicators</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.dhsprogram.com/rest/dhs/&#39;</span><span class="o">+</span><span class="n">metadata_type</span>
+
+        <span class="c1"># request data from url</span>
+        <span class="n">req</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+        <span class="c1"># read the json file</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
+        <span class="c1"># extract the data from the json</span>
+        <span class="n">json_data</span> <span class="o">=</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;Data&#39;</span><span class="p">]</span>
+
+        <span class="c1"># empty datafrmae to append data to</span>
+        <span class="n">final_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">json_data</span><span class="p">)</span>
+
+        <span class="c1"># select row of interest</span>
+        <span class="k">if</span> <span class="n">columns_interest</span> <span class="o">!=</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
+            <span class="n">final_data</span> <span class="o">=</span> <span class="n">final_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">columns_interest</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">final_data</span></div>
+
+    <span class="c1"># use the function above to access  metadata of interest. </span>
+    <span class="n">series_options</span> <span class="o">=</span> <span class="n">get_DHS_metadata</span><span class="p">(</span><span class="s1">&#39;indicators&#39;</span><span class="p">)</span>
+    <span class="n">country_options</span> <span class="o">=</span> <span class="n">get_DHS_metadata</span><span class="p">(</span><span class="s1">&#39;countries&#39;</span><span class="p">,</span> <span class="n">columns_interest</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CountryName&#39;</span><span class="p">,</span> <span class="s1">&#39;ISO2_CountryCode&#39;</span><span class="p">])</span>
+    <span class="n">survey_options</span> <span class="o">=</span> <span class="n">get_DHS_metadata</span><span class="p">(</span><span class="s1">&#39;surveys&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;SurveyId&#39;</span><span class="p">,</span> <span class="s1">&#39;SurveyYearLabel&#39;</span><span class="p">,</span> <span class="s1">&#39;SurveyType&#39;</span><span class="p">,</span> <span class="s1">&#39;CountryName&#39;</span><span class="p">])</span>
+
+
+    <span class="c1">######################</span>
+    <span class="c1">### methods to access parameters </span>
+    <span class="c1">#######################</span>
+
+<div class="viewcode-block" id="query.find_country_codes"><a class="viewcode-back" href="../../index.html#DHSpy.__init__.query.find_country_codes">[docs]</a>    <span class="k">def</span> <span class="nf">find_country_codes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">country_names</span><span class="p">:</span><span class="nb">list</span><span class="p">):</span> 
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        The find country codes of interest given a country name or list of country names </span>
+
+<span class="sd">        :param country_names: list of country names of interest</span>
+<span class="sd">        :type country_names: list</span>
+
+<span class="sd">        return </span>
+<span class="sd">            pandas.DataFrame()</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">countries</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">country_options</span>
+
+        <span class="k">return</span> <span class="n">countries</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">countries</span><span class="p">[</span><span class="s1">&#39;CountryName&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">country_names</span><span class="p">),</span> <span class="p">:]</span></div>
+
+
+    <span class="c1">### eventually build the others. </span>
+
+<div class="viewcode-block" id="query.run"><a class="viewcode-back" href="../../index.html#DHSpy.__init__.query.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> 
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Run the query given the series and survey selection. </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="n">return_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="n">fails</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">survey</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">survey_selection</span><span class="p">:</span> 
+
+            <span class="k">for</span> <span class="n">series</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">series_selection</span><span class="p">:</span> 
+                
+                <span class="n">qry</span> <span class="o">=</span> <span class="s1">&#39;https://api.dhsprogram.com/rest/dhs/v7/indicators?=</span><span class="si">{}</span><span class="s1">/survey?=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">survey</span><span class="p">)</span>
+
+                <span class="c1"># try to access the data </span>
+                <span class="k">try</span><span class="p">:</span> 
+                    <span class="c1"># use urlopen to get initial response</span>
+                    <span class="n">req</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">qry</span><span class="p">)</span>
+                    
+                    <span class="c1"># read the json file (json is a type of format passed over internet which resembles python dictionarie)</span>
+                    <span class="n">resp</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
+                    <span class="c1"># select the data from the json</span>
+                    <span class="n">data_json</span> <span class="o">=</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;Data&#39;</span><span class="p">]</span>
+
+                    <span class="c1"># select the number of pages, this will be used to iterate over the pages to access the full dataset.</span>
+                    <span class="n">number_of_pages</span> <span class="o">=</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;TotalPages&#39;</span><span class="p">]</span>
+
+                    <span class="c1"># transform data_json into a pandas dataframe</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">data_json</span><span class="p">)</span>
+
+                    <span class="c1"># append data to final data </span>
+                    <span class="n">return_data</span> <span class="o">=</span> <span class="n">return_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+                <span class="k">except</span><span class="p">:</span> 
+                    <span class="n">fails</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">survey</span><span class="p">,</span> <span class="n">series</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">return_data</span></div></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span><span class="s1">&#39;__init__&#39;</span><span class="p">:</span> 
+    <span class="n">DHSpy</span> <span class="o">=</span> <span class="n">query</span><span class="p">()</span>
+    
+        
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, USAID-Data-Services
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'0.0.1',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
