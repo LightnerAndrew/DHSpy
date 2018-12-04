@@ -86,20 +86,6 @@ class query(object):
     ### methods to access parameters 
     #######################
 
-    def get_docs(self): 
-        '''
-        Open package documentation in new browser
-        '''
-        DOC_PATH = pkg_resources.resource_filename('DHSpy', '/docs/build/html')
-
-        import webbrowser
-        new = 2  # open in a new tab, if possible
-
-        #// open an HTML file on my own(Windows) computer
-        url = "file://{}/index.html".format(DOC_PATH)
-        webbrowser.open(url, new=new)
-        return 
-
     def find_country_codes(self, country_names:list): 
         '''
         The find country codes of interest given a country name or list of country names 
@@ -156,7 +142,19 @@ class query(object):
 
         return return_data
 
+def get_docs():
+    '''
+    Open package documentation in new browser
+    '''
+    DOC_PATH = pkg_resources.resource_filename('DHSpy', '/docs/build/html')
 
+    import webbrowser
+    new = 2  # open in a new tab, if possible
+
+    #// open an HTML file on my own(Windows) computer
+    url = "file://{}/index.html".format(DOC_PATH)
+    webbrowser.open(url, new=new)
+    return
 
 if __name__ =='__init__': 
     DHSpy = query()
