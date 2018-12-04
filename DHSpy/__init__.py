@@ -96,7 +96,7 @@ class query(object):
         new = 2  # open in a new tab, if possible
 
         #// open an HTML file on my own(Windows) computer
-        url = "file://{}/testdata.html".format(DOC_PATH)
+        url = "file://{}/index.html".format(DOC_PATH)
         webbrowser.open(url, new=new)
         return 
 
