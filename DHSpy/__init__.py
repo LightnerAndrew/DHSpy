@@ -134,12 +134,12 @@ class query(object):
                     data = pd.DataFrame.from_records(data_json)
 
                     # append data to final data 
-                    final_data = final_data.append(data)
+                    return_data = return_data.append(data)
 
                 except: 
                     fails.append((survey, series))
 
-        return final_data
+        return return_data
 
 
 
