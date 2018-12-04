@@ -109,17 +109,19 @@ class query(object):
 
         return_data = pd.DataFrame()
         fails = []
+
         for survey in self.survey_selection: 
 
             for series in self.series_selection: 
-
-                qry = '{}/indicators?={}/survey?={}'.format(self.url, series, survey)
-
+                
+                qry = 'https://api.dhsprogram.com/rest/dhs/v7/indicators?={}/survey?={}'.format(series, survey)
+                print('here')
                 # try to access the data 
                 try: 
                     # use urlopen to get initial response
                     req = urlopen(qry)
-
+                    
+         
                     # read the json file (json is a type of format passed over internet which resembles python dictionarie)
                     resp = json.loads(req.read())
 
